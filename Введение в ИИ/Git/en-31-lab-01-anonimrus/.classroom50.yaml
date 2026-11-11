@@ -1,0 +1,12 @@
+schema: "classroom50/repo-config/v1"
+classroom: "en-31"
+assignment: "lab-01"
+owner:
+  username: "AnonimRus"
+  id: 129170719
+  accepted_at: "2026-09-21T16:32:20Z"
+source:
+  owner: "Yark42"
+  owner_id: 329221377
+  repo: "lab-01"
+  branch: "main"

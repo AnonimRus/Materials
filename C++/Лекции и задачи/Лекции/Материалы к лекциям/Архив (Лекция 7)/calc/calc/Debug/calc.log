@@ -1,0 +1,32 @@
+﻿Построение начато 11.12.2020 14:47:28.
+     1>Проект "C:\Users\Пользователь\Desktop\универ\структурное_программирование_с++\лекции\Лекция 7\Архив\calc\calc\calc.vcxproj" в узле 2 (целевые объекты build).
+     1>InitializeBuildStatus:
+         Создание "Debug\calc.unsuccessfulbuild", так как было задано "AlwaysCreate".
+       GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       ClCompile:
+         Для всех выходных данных обновления не требуется.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /AI"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" /Zi /clr:pure /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _UNICODE /D UNICODE /EHa /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\calc.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /TP /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Core.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Drawing.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Windows.Forms.dll" /FU"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Xml.dll" /analyze- /errorReport:prompt calc.cpp /clr:nostdlib 
+         calc.cpp
+         Для всех выходных данных обновления не требуется.
+       CoreResGen:
+         Для всех выходных данных обновления не требуется.
+       ResourceCompile:
+         Для всех выходных данных обновления не требуется.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Пользователь\Desktop\универ\структурное_программирование_с++\лекции\Лекция 7\Архив\calc\Debug\calc.exe" /INCREMENTAL /NOLOGO /ASSEMBLYRESOURCE:Debug\calc.Form1.resources /MANIFEST /ManifestFile:"Debug\calc.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Пользователь\Desktop\универ\структурное_программирование_с++\лекции\Лекция 7\Архив\calc\Debug\calc.pdb" /ASSEMBLYDEBUG /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 Debug\app.res
+         Debug\AssemblyInfo.obj
+         Debug\calc.obj
+         Debug\stdafx.obj
+         "Debug\.NETFramework,Version=v4.0.AssemblyAttributes.obj"
+         calc.vcxproj -> C:\Users\Пользователь\Desktop\универ\структурное_программирование_с++\лекции\Лекция 7\Архив\calc\Debug\calc.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Пользователь\Desktop\универ\структурное_программирование_с++\лекции\Лекция 7\Архив\calc\Debug\calc.exe;#1" /manifest Debug\calc.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Файл "Debug\calc.unsuccessfulbuild" удаляется.
+         Обращение к "Debug\calc.lastbuildstate".
+     1>Построение проекта "C:\Users\Пользователь\Desktop\универ\структурное_программирование_с++\лекции\Лекция 7\Архив\calc\calc\calc.vcxproj" завершено (целевые объекты build).
+
+Построение успешно завершено.
+
+Затраченное время: 00:00:02.24

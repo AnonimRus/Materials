@@ -1,0 +1,179 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[a4paper, mag=1000, left=1.5cm, right=1.5cm, top=2cm, bottom=2cm, headsep=0.7cm, footskip=1cm]{geometry}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[colorlinks=true, citecolor=blue, urlcolor=blue, linkcolor=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{physics}
+\usepackage{amsmath,amssymb}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.9}
+\usepackage{bigstrut}
+\usepackage{fancyhdr}
+
+\setlength{\headheight}{14.5pt}
+% Укажите ваш город и текущий год в колонтитуле
+\fancyfoot[C]{\text{Ярославль, 2026}}
+
+\begin{document}
+	\thispagestyle{fancy}
+	
+	% --- ТИТУЛЬНЫЙ БЛОК ---
+	\begin{center}
+		\textsc{Ярославский государственный университет им. П.Г. Демидова\\[3mm]
+			Физико-технический факультет\\Электроника и наноэлектроника} \\[3mm]
+		% Убедитесь, что файл логотипа (например, logoyargu.png) лежит в одной папке с проектом
+		\includegraphics[scale=0.08]{logoyargu.png}
+	\end{center}
+	\line(1,0){\textwidth}
+	\begin{center}
+		\begin{tabular}{rlrl}
+			\textbf{Группа:} & \underline{\text{ЭН-21 БО \qquad \qquad \qquad \qquad}} & \textbf{К работе допущен} & \underline{\qquad \qquad \qquad \qquad} \\
+			\textbf{Студент:} & \underline{\text{Фамилия И.О.} \qquad \qquad \quad} & \textbf{Работа выполнена} & \underline{\qquad \qquad \qquad \qquad} \\
+			\textbf{Преподаватель:} & \underline{\text{Преподаватель}\quad \;\;\;\;\qquad} & \textbf{Отчёт принят} & \underline{\qquad \qquad \qquad \qquad} \\
+		\end{tabular}
+	\end{center}
+	\line(1,0){\textwidth}
+	
+	\vspace{50mm}
+	
+	\begin{center}
+		\textbf{ОТЧЁТ ПО ЛАБОРАТОРНОЙ РАБОТЕ № <Номер>\\}
+		\textbf{«<НАЗВАНИЕ ЛАБОРАТОРНОЙ РАБОТЫ>»}
+	\end{center}
+	
+	\newpage
+	% --- КОНЕЦ ТИТУЛЬНОГО БЛОКА ---
+	
+	\section{Цель работы.}
+	<Опишите главную цель работы, например: Исследование... / Измерение...>
+	
+	\section{Задачи, решаемые при выполнении работы.}
+	1) <Задача 1>
+	
+	2) <Задача 2>
+	
+	3) <Задача 3>
+	
+	\section{Объект исследования.}
+	<Что именно исследуется в работе>
+	
+	\section{Метод экспериментального исследования.}
+	<Краткое описание метода, используемых подходов или принципов>
+	
+	\section{Рабочие формулы и исходные данные.}
+	
+	<Описание рабочей величины>:
+	\begin{equation}
+		V = \frac{A}{B},
+		\label{eq:formula1}
+	\end{equation}
+	где \(A\) — <описание параметра>, \(B\) — <описание параметра>.
+	
+	Относительная погрешность:
+	\begin{equation}
+		\delta = \frac{|V_{\text{эксп}} - V_{\text{табл}}|}{V_{\text{табл}}} \cdot 100\%.
+		\label{eq:delta}
+	\end{equation}
+	
+	Справочные/табличные значения: <значения, если применимо>.
+	
+	\section{Измерительные приборы.}
+	\begin{table}[H]
+		\centering
+		Таблица 1 - Измерительные приборы
+		\begin{tabular}{|c|c|c|c|c|} \hline
+			№ & Наименование & Тип & Диапазон & Погрешность \\ \hline
+			1 & <Прибор 1> & <Тип> & <Диапазон> & \(\pm <\text{Погрешность}>\) \\ \hline
+			2 & <Прибор 2> & <Тип> & <Диапазон> & \(\pm <\text{Погрешность}>\) \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\section{Схема установки.}
+	\begin{figure}[H]
+		\begin{center}
+			\begin{minipage}{0.45\textwidth}
+				\centering
+				% Замените '1' на имя вашего файла с картинкой схемы установки
+				%\includegraphics[height=4cm]{1}
+				\mbox{Рисунок 1 - Схема экспериментальной установки}
+			\end{minipage}
+		\end{center}
+	\end{figure}
+	
+	\section{Ход работы.}
+	
+	\subsection{Результаты прямых измерений.}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			№ & \(X\), <ед.> & \(Y\), <ед.> & \(Z\), <ед.> \\
+			\hline
+			1 & ... & ... & ... \\
+			2 & ... & ... & ... \\
+			3 & ... & ... & ... \\
+			\hline
+		\end{tabular}
+		\caption{Результаты измерений}
+		\label{tab:results}
+	\end{table}
+	
+	\subsection{Расчёты.}
+	
+	По формуле \eqref{eq:formula1}:
+	\[
+	V_1 = \dots, \quad V_2 = \dots
+	\]
+	
+	Среднее значение:
+	\[
+	V_{\text{ср}} = \dots
+	\]
+	
+	\subsection{График зависимости.}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\begin{axis}[
+				width=0.8\textwidth,
+				height=0.45\textwidth,
+				xlabel={\(X\), <ед.>},
+				ylabel={\(Y\), <ед.>},
+				grid=both,
+				legend pos=north west,
+				]
+				\addplot[blue, thick, mark=*] coordinates {
+					(1, 2) (2, 4) (3, 6) (4, 8)
+				};
+				\addlegendentry{\(Y = f(X)\)}
+			\end{axis}
+		\end{tikzpicture}
+		\caption{График исследуемой зависимости}
+		\label{fig:graph}
+	\end{figure}
+	
+	\section{Окончательные результаты.}
+	
+	Полученное значение:
+	\[
+	V_{\text{ср}} = <\text{Значение}> \pm <\text{Погрешность}>.
+	\]
+	
+	Относительная погрешность:
+	\[
+	\delta \approx <\text{Значение}>\%.
+	\]
+	
+	\section{Выводы.}
+	
+	В ходе работы <краткий итог проделанной работы>. Полученные результаты <согласуются / не согласуются> с теоретическими/табличными значениями. Основные источники погрешностей: <факторы>. Цель работы достигнута.
+	
+\end{document}

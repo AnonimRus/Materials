@@ -1,0 +1,8 @@
+﻿  MyForm.cpp
+c:\users\801512\desktop\структурное программирование\c++\практика\пружинный_маятник\spring\spring\MyForm.h(16): warning C4305: инициализация: усечение из "double" к "float"
+c:\users\801512\desktop\структурное программирование\c++\практика\пружинный_маятник\spring\spring\MyForm.h(207): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\801512\desktop\структурное программирование\c++\практика\пружинный_маятник\spring\spring\MyForm.h(209): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+c:\users\801512\desktop\структурное программирование\c++\практика\пружинный_маятник\spring\spring\MyForm.h(224): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  MyForm.obj : /DEBUG:FASTLINK не поддерживается, если присутствует управляемый код; выполняется перезапуск компоновки с /DEBUG:FULL
+  spring.vcxproj -> C:\Users\801512\Desktop\структурное программирование\c++\практика\пружинный_маятник\spring\Debug\spring.exe
+  spring.vcxproj -> C:\Users\801512\Desktop\структурное программирование\c++\практика\пружинный_маятник\spring\Debug\spring.pdb (Partial PDB)

@@ -1,0 +1,4 @@
+Decimal: 1234
+Binary: 10011010010
+Octal: 2322
+Hexadecimal: 4D2

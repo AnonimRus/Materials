@@ -1,0 +1,613 @@
+SCIKIT-LEARN (sklearn): КРАТКИЙ УЧЕБНЫЙ ГАЙД
+
+ВАЖНО
+
+1.  sklearn работает с данными в формате: X — признаки, обычно таблица
+    размера (n_samples, n_features) y — целевая переменная.
+2.  Для обучения почти всегда используются: model.fit(X, y)
+3.  Для получения предсказаний: model.predict(X)
+4.  Для оценки качества используйте отдельные тестовые данные.
+5.  Примеры ниже используют NumPy и pandas там, где это удобно.
+
+УСТАНОВКА И ИМПОРТ
+
+Установка: pip install scikit-learn
+
+Основные импорты: 
+	import numpy as np 
+	import pandas as pd
+
+from sklearn.model_selection import train_test_split       		# разделение данных на train/test
+from sklearn.preprocessing import StandardScaler          		# стандартизация признаков (нормализация, масштабирование)
+from sklearn.metrics import accuracy_score, mean_squared_error  	# метрики качества (среднеквадратичная ошибка, абсолютная ошибка и т.д.)
+from sklearn.linear_model import LinearRegression, LogisticRegression  	# линейная регрессия и классификация
+from sklearn.neighbors import KNeighborsClassifier        		# классификация по ближайшим соседям
+from sklearn.tree import DecisionTreeClassifier            		# классификация деревом решений
+from sklearn.ensemble import RandomForestClassifier        		# классификация ансамблем деревьев
+from sklearn.cluster import KMeans                        		# кластеризация
+
+БАЗОВЫЙ ШАБЛОН ML
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    model = SomeModel()
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+    # далее — метрика
+    print(...)
+
+Ключевая идея: train -> fit -> predict -> evaluate
+
+============================================================ 
+		1. РАЗДЕЛЕНИЕ ДАННЫХ
+============================================================
+
+train_test_split
+
+Назначение: разделить данные на обучающую и тестовую части.
+
+Минимальный пример: from sklearn.model_selection import train_test_split
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y,
+        test_size=0.2,
+        random_state=42
+    )
+
+Краткая справка: 
+X — признаки 
+y — целевая переменная 
+test_size=0.2 — 20% данных уйдёт в тест 
+random_state — фиксирует случайность, чтобы результат воспроизводился
+
+Обычно: 70–80% train 20–30% test
+
+============================================================ 
+		2. МАСШТАБИРОВАНИЕ ПРИЗНАКОВ
+============================================================
+
+StandardScaler
+
+Назначение: привести числовые признаки к сопоставимому масштабу.
+
+    from sklearn.preprocessing import StandardScaler
+
+    scaler = StandardScaler()
+
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
+Ключевой момент: 
+fit_transform — только для train 
+transform — для test
+
+Нельзя делать: scaler.fit_transform(X_test)
+
+Почему? Потому что тестовая выборка не должна влиять на обучение.
+
+Особенно полезно для: 
+KNN 
+LogisticRegression 
+SVM методов, основанных на расстояниях или масштабе признаков.
+
+Для деревьев масштабирование обычно не требуется.
+
+============================================================ 
+		3. ЛИНЕЙНАЯ РЕГРЕССИЯ 
+============================================================
+
+LinearRegression
+
+Назначение: предсказывать ЧИСЛО.
+
+Примеры: цена квартиры зарплата расход топлива температура
+
+    from sklearn.linear_model import LinearRegression
+
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+Оценка: from sklearn.metrics import mean_squared_error
+
+    mse = mean_squared_error(y_test, y_pred)
+    print(mse)
+
+Полезные атрибуты: 
+    model.coef_ — коэффициенты признаков 
+    model.intercept_ — свободный член
+
+Минимальный пример целиком: 
+
+    X = [[1], [2], [3], [4], [5]] y = [2, 4, 6,8, 10]
+
+    model = LinearRegression()
+    model.fit(X, y)
+
+    print(model.predict([[6]]))
+
+Ожидаемо получим число около 12.
+
+Краткая справка: 
+    fit(X, y) — обучить модель 
+    predict(X) — получить прогноз 
+    coef_ — коэффициенты 
+    intercept_ — свободный член
+
+============================================================ 
+		4. ЛОГИСТИЧЕСКАЯ РЕГРЕССИЯ
+============================================================
+
+LogisticRegression
+
+Назначение: классификация.
+
+Например: спам / не спам болен / здоров класс 0 / класс 1
+
+    from sklearn.linear_model import LogisticRegression
+
+    model = LogisticRegression(max_iter=1000)
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+Оценка: from sklearn.metrics import accuracy_score
+
+    print(accuracy_score(y_test, y_pred))
+
+Вероятности: 
+
+    y_prob = model.predict_proba(X_test)
+
+Краткая справка: 
+    predict(X) — классы 
+    predict_proba(X) — вероятности классов 
+    max_iter — максимальное число итераций обучения
+
+Для LogisticRegression часто полезно: 
+    StandardScaler + LogisticRegression
+
+============================================================ 
+			5. KNN
+============================================================
+
+KNeighborsClassifier
+
+Назначение: классификация по ближайшим объектам.
+
+Идея: Новый объект получает класс по соседям.
+
+    from sklearn.neighbors import KNeighborsClassifier
+
+    model = KNeighborsClassifier(n_neighbors=5)
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+Оценка: 
+
+    print(accuracy_score(y_test, y_pred))
+
+Главный параметр: 
+
+    n_neighbors — количество соседей.
+
+Важно: KNN чувствителен к масштабу признаков. Поэтому часто используйте
+StandardScaler.
+
+Пример: 
+    scaler = StandardScaler() 
+    X_train_s = scaler.fit_transform(X_train) 
+    X_test_s = scaler.transform(X_test)
+
+    model = KNeighborsClassifier(n_neighbors=5)
+    model.fit(X_train_s, y_train)
+
+============================================================ 
+		6. ДЕРЕВО РЕШЕНИЙ 
+============================================================
+
+DecisionTreeClassifier
+
+Назначение: классификация с помощью дерева правил.
+
+    from sklearn.tree import DecisionTreeClassifier
+
+    model = DecisionTreeClassifier(
+        max_depth=5,
+        random_state=42
+    )
+
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+Ключевой параметр: max_depth — максимальная глубина дерева.
+
+Почему это важно: слишком глубокое дерево может переобучиться.
+
+Для регрессии: 
+
+    from sklearn.tree import DecisionTreeRegressor
+
+    model = DecisionTreeRegressor(max_depth=5, random_state=42)
+
+============================================================ 
+		7. RANDOM FOREST 
+============================================================
+
+RandomForestClassifier
+
+Назначение: ансамбль деревьев.
+
+    from sklearn.ensemble import RandomForestClassifier
+
+    model = RandomForestClassifier(
+        n_estimators=100,
+        random_state=42
+    )
+
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+Главный параметр: n_estimators — количество деревьев.
+
+Полезно: 
+
+    model.feature_importances_
+
+Он показывает относительную важность признаков для дерева/леса.
+
+Для регрессии: 
+
+    from sklearn.ensemble import RandomForestRegressor
+
+    model = RandomForestRegressor(
+        n_estimators=100,
+        random_state=42
+    )
+
+============================================================ 
+		8. МЕТРИКИ КЛАССИФИКАЦИИ
+============================================================
+
+accuracy_score
+
+Доля правильных ответов.
+
+    from sklearn.metrics import accuracy_score
+
+    accuracy_score(y_test, y_pred)
+
+Например: 0.92 = 92% предсказаний правильные.
+
+    classification_report
+
+Дает основные метрики по классам.
+
+    from sklearn.metrics import classification_report
+
+    print(classification_report(y_test, y_pred))
+
+Обычно содержит: 
+     
+    precision recall f1-score support
+
+Кратко: 
+     precision — насколько предсказанные положительные объекты
+     действительно положительные 
+
+    recall — какую долю реальных положительных
+    объектов нашли f1 — гармоническое среднее precision и recall
+
+confusion_matrix
+
+Показывает ошибки классификатора в виде матрицы.
+
+    from sklearn.metrics import confusion_matrix
+
+    print(confusion_matrix(y_test, y_pred))
+
+Пример для красиво нарисованной матрицы ошибок:
+    cm = confusion_matrix(Y_test, y_pred)
+
+    ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['Не сдал', 'Сдал']).plot()
+    plt.grid(False)
+    plt.show()
+
+============================================================ 
+		9. МЕТРИКИ РЕГРЕССИИ 
+============================================================
+
+mean_squared_error
+
+Средняя квадратичная ошибка.
+
+    from sklearn.metrics import mean_squared_error
+
+    mse = mean_squared_error(y_test, y_pred)
+    print(mse)
+
+Чем меньше — тем лучше.
+
+    root_mean_squared_error
+
+RMSE — корень из MSE.
+
+    from sklearn.metrics import root_mean_squared_error
+
+    rmse = root_mean_squared_error(y_test, y_pred)
+    print(rmse)
+
+Примечание: 
+В старых версиях sklearn, где root_mean_squared_error
+отсутствует, можно использовать: rmse = mean_squared_error(y_test,
+y_pred) ** 0.5
+
+    mean_absolute_error
+
+Средняя абсолютная ошибка.
+
+    from sklearn.metrics import mean_absolute_error
+
+    mae = mean_absolute_error(y_test, y_pred)
+
+Чем меньше — тем лучше.
+
+Коэффициент детерминации
+R2: 
+    from sklearn.metrics import r2_score
+
+    r2 = r2_score(y_test, y_pred)
+
+Чем ближе к 1, тем лучше для типичной задачи регрессии.
+
+============================================================ 
+		10. КЛАСТЕРИЗАЦИЯ
+============================================================
+
+KMeans
+
+Назначение: разделить объекты на группы без заранее известных классов.
+
+    from sklearn.cluster import KMeans
+
+    model = KMeans(
+        n_clusters=3,
+        random_state=42,
+        n_init="auto"
+    )
+
+    model.fit(X)
+
+    labels = model.labels_
+
+Можно также: 
+
+    labels = model.fit_predict(X)
+
+Главный параметр: 
+
+    n_clusters — количество кластеров.
+
+Важно: KMeans чувствителен к масштабу признаков.
+
+Частый шаблон: 
+
+    scaler = StandardScaler() 
+    X_scaled = scaler.fit_transform(X)
+
+    model = KMeans(n_clusters=3, random_state=42, n_init="auto")
+    labels = model.fit_predict(X_scaled)
+
+Полезно: model.cluster_centers_
+
+============================================================ 
+			11. PIPELINE 
+============================================================
+
+Pipeline
+
+Назначение: объединить несколько этапов обработки и модель.
+
+Например: масштабирование -> LogisticRegression
+
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.linear_model import LogisticRegression
+
+    pipe = Pipeline([
+        ("scaler", StandardScaler()),
+        ("model", LogisticRegression(max_iter=1000))
+    ])
+
+    pipe.fit(X_train, y_train)
+    y_pred = pipe.predict(X_test)
+
+Преимущество: меньше риска случайно обработать train/test неправильно.
+
+Pipeline особенно полезен вместе с кросс-валидацией и подбором
+параметров.
+
+============================================================ 
+		12. КРОСС-ВАЛИДАЦИЯ
+============================================================
+
+cross_val_score
+
+Позволяет оценить модель на нескольких разбиениях.
+
+    from sklearn.model_selection import cross_val_score
+
+    scores = cross_val_score(
+        model,
+        X,
+        y,
+        cv=5
+    )
+
+    print(scores)
+    print(scores.mean())
+
+cv=5: данные делятся на 5 частей; модель несколько раз обучается и
+проверяется на разных частях.
+
+Краткая справка: scores — результат каждой части scores.mean() — средняя
+оценка
+
+============================================================ 
+		13. ПОДБОР ПАРАМЕТРОВ
+============================================================
+
+GridSearchCV
+
+Перебирает заданные комбинации параметров.
+
+Пример для дерева:
+
+    from sklearn.model_selection import GridSearchCV
+    from sklearn.tree import DecisionTreeClassifier
+
+    model = DecisionTreeClassifier(random_state=42)
+
+    param_grid = {
+        "max_depth": [2, 3, 5, 10]
+    }
+
+    grid = GridSearchCV(
+        model,
+        param_grid,
+        cv=5
+    )
+
+    grid.fit(X_train, y_train)
+
+    print(grid.best_params_)
+    print(grid.best_score_)
+
+Логика: 
+1. задаём модель 
+2. задаём варианты параметров 
+3. GridSearchCV проверяет комбинации 
+4. получаем best_params_
+
+После обучения: best_model = grid.best_estimator_
+
+Можно сразу: y_pred = grid.predict(X_test)
+
+============================================================ 
+		14. РАБОТА С ПРОПУСКАМИ
+============================================================
+
+SimpleImputer
+
+Назначение: заменить пропущенные значения.
+
+    from sklearn.impute import SimpleImputer
+
+    imputer = SimpleImputer(strategy="mean")
+
+    X_train_imp = imputer.fit_transform(X_train)
+    X_test_imp = imputer.transform(X_test)
+
+Основные стратегии: “mean” — среднее “median” — медиана “most_frequent”
+— наиболее частое значение
+
+Для числовых данных часто используют median.
+
+Важно: 
+fit только на train; 
+transform на train и test.
+
+============================================================ 
+		15. КОДИРОВАНИЕ КАТЕГОРИЙ
+============================================================
+
+OneHotEncoder
+
+Превращает категории в числовые признаки.
+
+    from sklearn.preprocessing import OneHotEncoder
+
+    encoder = OneHotEncoder(handle_unknown="ignore")
+
+    X_train_encoded = encoder.fit_transform(X_train)
+    X_test_encoded = encoder.transform(X_test)
+
+Для небольших примеров с pandas часто удобно: 
+
+    pd.get_dummies(df)
+
+Но если строится ML-пайплайн, полезно изучить 
+OneHotEncoder + ColumnTransformer.
+
+============================================================ 
+		16. COLUMNTRANSFORMER
+============================================================
+
+Используется, когда разные столбцы требуют разной обработки.
+
+Например: числовые -> StandardScaler категориальные -> OneHotEncoder
+
+    from sklearn.compose import ColumnTransformer
+    from sklearn.preprocessing import StandardScaler, OneHotEncoder
+
+    preprocessor = ColumnTransformer([
+        ("num", StandardScaler(), ["age", "salary"]),
+        ("cat", OneHotEncoder(handle_unknown="ignore"), ["city"])
+    ])
+
+Затем: 
+    X_train_p = preprocessor.fit_transform(X_train) 
+    X_test_p = preprocessor.transform(X_test)
+
+На практике чаще объединяют это с Pipeline.
+
+============================================================ 
+		17. ПРАКТИЧЕСКИЙ ПОЛНЫЙ ШАБЛОН
+============================================================
+
+Классификация:
+
+    import pandas as pd
+
+    from sklearn.model_selection import train_test_split
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import StandardScaler
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.metrics import accuracy_score, classification_report
+
+    df = pd.read_csv("data.csv")
+
+    X = df[["age", "income", "score"]]
+    y = df["target"]
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y,
+        test_size=0.2,
+        random_state=42,
+        stratify=y
+    )
+
+    pipe = Pipeline([
+        ("scaler", StandardScaler()),
+        ("model", LogisticRegression(max_iter=1000))
+    ])
+
+    pipe.fit(X_train, y_train)
+
+    y_pred = pipe.predict(X_test)
+
+    print("Accuracy:", accuracy_score(y_test, y_pred))
+    print(classification_report(y_test, y_pred))
+
+Ключевая последовательность: 
+загрузить данные -> X и y -> train/test -> 
+-> preprocessing -> model -> fit -> predict -> metric
+
+
+
